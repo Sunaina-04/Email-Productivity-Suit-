@@ -3,7 +3,7 @@ A Tkinter desktop app for sending a single email through Gmail SMTP.
 The user fills in From, App Password, To, Subject, Body, clicks Send,
 and the app reports each step (connecting, authenticating, sending).
 """
-# import tkinter as tk
+import tkinter as tk
 import smtplib
 from email.message import EmailMessage
 # from tkinter import ttk
@@ -27,7 +27,22 @@ def send_email(sender, password, recipient, subject, body):
     msg.set_content(body)
     with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as smtp:
         smtp.starttls()
-        smtp.login(sender, password) # TODO: try-except smtplib.SMTPAuthenticationError
+        smtp.login(sender, password)
         smtp.send_message(msg)
 
 # THE APP CLASS
+
+class EmailSenderApp:
+    """
+        Initialize the main window, input variables and build the UI
+    """
+    def __init__(self, root):
+        self.root = root
+        self.root.title ("EmailSenderApp")
+
+        self.from_var = tk.StringVar()
+        self.password_var = tk.StringVar()
+        self.to_var = tk.StringVar()
+        self.subject_var = tk.StringVar()
+
+        # self.build_ui()
